@@ -85,9 +85,9 @@ JWT나 필터가 어렵게 느껴질 수 있지만, 핵심은 "로그인 성공 
 
 > [!NOTE]
 > 아래 내용을 직접 적으면서 이번 주 이해도를 점검한다.
-> - 로그인 성공 후 서버가 돌려줄 값:
-> - 다음 요청에서 인증을 확인하는 방식:
-> - 프론트와 먼저 맞춰야 할 응답 필드:
+> - 로그인 성공 후 서버가 돌려줄 값: accessToken + user(id, name, email)
+> - 다음 요청에서 인증을 확인하는 방식: Authorization: Bearer{token} 헤더로 보내면 필터가 검증
+> - 프론트와 먼저 맞춰야 할 응답 필드: accessToken, user.id, user.name, user.email
 
 ## 체크리스트
 
