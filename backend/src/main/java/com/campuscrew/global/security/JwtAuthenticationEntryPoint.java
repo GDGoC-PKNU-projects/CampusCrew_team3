@@ -1,5 +1,6 @@
 package com.campuscrew.global.security;
 
+import com.campuscrew.global.exception.ErrorCode;
 import com.campuscrew.global.response.ApiResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +25,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
                          AuthenticationException authException) throws IOException{
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.getWriter().write(objectMapper.writeValueAsString(ApiResponse.error("로그인 정보가 올바르지 않습니다.")));
+        response.getWriter().write(objectMapper.writeValueAsString(ApiResponse.error(ErrorCode.TOKEN_MISSING)));
     }
 }

@@ -1,4 +1,4 @@
-package com.campuscrew.global.Exception;
+package com.campuscrew.global.exception;
 
 import com.campuscrew.global.response.ApiResponse;
 import org.springframework.http.HttpStatus;
@@ -9,24 +9,25 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiResponse<?>> handleValidationException(MethodArgumentNotValidException e) {
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(ApiResponse.error("필수 입력값이 누락되었습니다."));
+                .status(ErrorCode.MISSING_REQUIRED_FIELD.getStatus())
+                .body(ApiResponse.error(ErrorCode.MISSING_REQUIRED_FIELD));
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ApiResponse<?>> handleIllegalArgumentException(IllegalArgumentException e) {
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ApiResponse<?>> handleCustomException(CustomException e){
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
-                .body(ApiResponse.error(e.getMessage()));
+                .status(e.getErrorCode().getStatus())
+                .body(ApiResponse.error(e.getErrorCode()));
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<?>> handelException(Exception e) {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ApiResponse.error("서버 오류가 발생했습니다."));
+                .body(ApiResponse.error(ErrorCode.SERVER_ERROR));
     }
 }
