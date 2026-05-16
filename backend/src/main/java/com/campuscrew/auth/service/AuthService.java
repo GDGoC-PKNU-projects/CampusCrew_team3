@@ -6,6 +6,8 @@ import com.campuscrew.auth.dto.SignupRequest;
 import com.campuscrew.auth.entity.User;
 import com.campuscrew.auth.jwt.JwtTokenProvider;
 import com.campuscrew.auth.repository.UserRepository;
+import com.campuscrew.global.exception.CustomException;
+import com.campuscrew.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ public class AuthService {
 
     public User signup(SignupRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new IllegalArgumentException("이미 사용 중인 이메일입니다.");
+            throw new CustomException(ErrorCode.DUPLICATE_EMAIL);
         }
 
         User user = User.builder()
@@ -34,10 +36,10 @@ public class AuthService {
 
     public LoginResponse login(LoginRequest request) {
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.LOGIN_FAILED));
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("비밀번호가 올바르지 않습니다.");
+            throw new CustomException(ErrorCode.LOGIN_FAILED);
         }
 
         String token = jwtTokenProvider.generateToken(user.getId());
