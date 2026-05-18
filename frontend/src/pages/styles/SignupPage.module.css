@@ -1,0 +1,62 @@
+.page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eef6fb;
+    font-family:
+            Inter,
+            Pretendard,
+            -apple-system,
+            BlinkMacSystemFont,
+            'Segoe UI',
+            sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 520px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.brandSection {
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.iconWrapper {
+    width: 72px;
+    height: 72px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 16px;
+
+    background-color: #263f99;
+
+    color: white;
+    font-size: 34px;
+}
+
+.title {
+    margin-bottom: 12px;
+
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.05;
+
+    letter-spacing: -1.5px;
+    color: #0b132b;
+}
+
+.description {
+    font-size: 18px;
+    color: #64748b;
+}
