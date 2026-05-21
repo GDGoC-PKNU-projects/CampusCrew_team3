@@ -1,6 +1,9 @@
 package com.campuscrew.auth.jwt;
 
+import com.campuscrew.global.exception.CustomException;
+import com.campuscrew.global.exception.ErrorCode;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -33,20 +36,26 @@ public class JwtTokenProvider {
     }
 
     public Long getUserId(String token) {
-        Claims claims = Jwts.parser()
-                .verifyWith(key)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
-        return Long.parseLong(claims.getSubject());
+        try {
+            Claims claims = Jwts.parser()
+                    .verifyWith(key)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+            return Long.parseLong(claims.getSubject());
+        } catch (JwtException e) {
+            throw new CustomException(ErrorCode.TOKEN_INVALID);
+        }
     }
 
-    public boolean validateToken(String token) {
-        try{
+    public TokenStatus validateToken(String token) {
+        try {
             Jwts.parser().verifyWith(key).build().parseSignedClaims(token);
-            return true;
+            return TokenStatus.VALID;
+        } catch (ExpiredJwtException e) {
+            return TokenStatus.EXPIRED;
         } catch (JwtException | IllegalArgumentException e) {
-            return false;
+            return TokenStatus.INVALID;
         }
     }
 }

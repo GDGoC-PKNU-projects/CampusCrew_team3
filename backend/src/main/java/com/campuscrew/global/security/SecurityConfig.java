@@ -1,6 +1,6 @@
 package com.campuscrew.global.security;
 
-import com.campuscrew.auth.jwt.JwtAuthenticationFileter;
+import com.campuscrew.auth.jwt.JwtAuthenticationFilter;
 import com.campuscrew.auth.jwt.JwtTokenProvider;
 import com.campuscrew.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/signup", "/api/auth/login").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(
-                        new JwtAuthenticationFileter(jwtTokenProvider, userRepository),
+                        new JwtAuthenticationFilter(jwtTokenProvider, userRepository),
                         UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

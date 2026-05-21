@@ -2,21 +2,28 @@ package com.campuscrew.auth.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
 @Getter
 public class SignupRequest{
 
-    @NotBlank(message = "이름을 입력해주세요.")
+    @NotBlank(message = "VALID_001")
+    @Size(min = 2, max = 20, message = "VALID_NAME_001")
     private String name;
 
-    @NotBlank(message = "학번을 입력해주세요.")
+    @NotBlank(message = "VALID_001")
+    @Pattern(regexp = "^[0-9]+$", message = "VALID_STUID_001")
+    @Size(min = 8, max = 10, message = "VALID_STUID_002")
     private String studentId;
 
-    @Email(message = "이메일 형식이 올바르지 않습니다.")
-    @NotBlank(message = "이메일을 입력해주세요.")
+    @NotBlank(message = "VALID_001")
+    @Email(message = "VALID_EMAIL_001")
+    @Size(max = 100, message = "VALID_EMAIL_002")
     private String email;
 
-    @NotBlank(message = "비밀번호를 입력해주세요.")
+    @NotBlank(message = "VALID_001")
+    @Size(min = 8, max = 20, message = "VALID_PW_001")
     private String password;
 }

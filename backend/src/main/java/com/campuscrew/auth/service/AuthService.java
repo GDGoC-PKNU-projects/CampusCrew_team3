@@ -24,6 +24,10 @@ public class AuthService {
             throw new CustomException(ErrorCode.DUPLICATE_EMAIL);
         }
 
+        if(userRepository.existsByStudentId(request.getStudentId())) {
+            throw new CustomException(ErrorCode.DUPLICATE_STUDENT_ID);
+        }
+
         User user = User.builder()
                 .name(request.getName())
                 .studentId(request.getStudentId())

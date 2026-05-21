@@ -4,6 +4,7 @@
     import com.campuscrew.auth.dto.*;
     import com.campuscrew.auth.entity.User;
     import com.campuscrew.auth.service.AuthService;
+    import com.campuscrew.global.exception.SuccessCode;
     import com.campuscrew.global.response.ApiResponse;
     import jakarta.servlet.http.HttpServletRequest;
     import jakarta.validation.Valid;
@@ -21,13 +22,15 @@
         @PostMapping("/signup")
         public ResponseEntity<ApiResponse<?>> signup(@RequestBody @Valid SignupRequest request) {
             User user = authService.signup(request);
-            return ResponseEntity.ok(ApiResponse.success(new SignupResponse(user), "회원가입이 완료되었습니다."));
+            return ResponseEntity
+                    .status(SuccessCode.SIGNUP_SUCCESS.getStatus())
+                    .body(ApiResponse.success(SuccessCode.SIGNUP_SUCCESS, new SignupResponse(user)));
         }
 
         @PostMapping("/login")
         public ResponseEntity<ApiResponse<?>> login(@RequestBody @Valid LoginRequest request) {
             LoginResponse loginResponse = authService.login(request);
-            return ResponseEntity.ok(ApiResponse.success(loginResponse, "로그인에 성공했습니다."));
+            return ResponseEntity.ok(ApiResponse.success(SuccessCode.LOGIN_SUCCESS, loginResponse));
         }
 
         @GetMapping("/me")
@@ -36,6 +39,6 @@
                     .getAuthentication()
                     .getPrincipal();
 
-            return ResponseEntity.ok(ApiResponse.success(new MeResponse(user)));
+            return ResponseEntity.ok(ApiResponse.success(SuccessCode.ME_SUCCESS, new MeResponse(user)));
         }
     }
