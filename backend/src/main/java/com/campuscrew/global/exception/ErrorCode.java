@@ -39,6 +39,10 @@ public enum ErrorCode {
     INVALID_STUDENT_ID_LENGTH(HttpStatus.BAD_REQUEST, "VALID_STUID_002", "학번은 8자 이상 10자 이하로 입력해야 합니다."),
 
     // 팀 검증
+    INVALID_TEAM_NAME(HttpStatus.BAD_REQUEST, "VALID_TEAM_001", "팀명은 2자 이상 30자 이하로 입력해야 합니다."),
+    INVALID_COURSE_NAME(HttpStatus.BAD_REQUEST, "VALID_TEAM_002", "과목명은 2자 이상 30자 이하로 입력해야 합니다."),
+    INVALID_TEAM_DESCRIPTION(HttpStatus.BAD_REQUEST, "VALID_TEAM_003", "팀 소개는 최대 500자까지 입력할 수 있습니다."),
+    INVALID_TEAM_JOIN_CODE(HttpStatus.BAD_REQUEST, "VALID_TEAM_004", "참여 코드는 영문 대문자와 숫자 6자리여야 합니다."),
 
     // 공지 검증
 
