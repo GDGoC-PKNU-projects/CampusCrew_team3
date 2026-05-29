@@ -1,12 +1,11 @@
 package com.campuscrew.team.entity;
 
+import com.campuscrew.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "team_members")
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class TeamMember {
+public class TeamMember extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,12 +26,4 @@ public class TeamMember {
 
     @Column(nullable = false)
     private String role;
-
-    @Column(nullable = false)
-    private LocalDateTime joinedAt;
-
-    @PrePersist
-    public void prePersist() {
-        this.joinedAt = LocalDateTime.now();
-    }
 }

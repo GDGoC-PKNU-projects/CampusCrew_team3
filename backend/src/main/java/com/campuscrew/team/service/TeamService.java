@@ -7,11 +7,12 @@ import com.campuscrew.team.entity.Team;
 import com.campuscrew.team.entity.TeamMember;
 import com.campuscrew.team.repository.TeamMemberRepository;
 import com.campuscrew.team.repository.TeamRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -47,19 +48,29 @@ public class TeamService {
         return new TeamCreateResponse(savedTeam);
     }
 
+    @Transactional(readOnly = true)
     public List<TeamListResponse> getMyTeams(Long userId) {
         List<TeamMember> memberships = teamMemberRepository.findAllByUserId((userId));
 
-        return memberships.stream()
-                .map(membership -> {
-                    Team team = teamRepository.findById(membership.getTeamId())
-                            .orElseThrow(() -> new CustomException(ErrorCode.TEAM_NOT_FOUND));
-                    int memberCount = teamMemberRepository.countByTeamId(team.getId());
-                    return new TeamListResponse(team, memberCount);
-                })
+        List<Long> teamIds = memberships.stream()
+                .map(TeamMember::getTeamId)
+                .collect(Collectors.toList());
+
+        List<Team> teams = teamRepository.findAllByIdIn(teamIds);
+
+        Map<Long, Integer> memberCountMap = teamMemberRepository.countByTeamIdIn(teamIds)
+                .stream()
+                .collect(Collectors.toMap(
+                        row -> (Long) row[0],
+                        row -> ((Long) row[1]).intValue()
+                ));
+
+        return teams.stream()
+                .map(team -> new TeamListResponse(team, memberCountMap.getOrDefault(team.getId(), 0)))
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public TeamDetailResponse getTeamDetail(Long userId, Long teamId) {
         validateMembership(userId, teamId);
 
@@ -90,6 +101,7 @@ public class TeamService {
         return new TeamJoinResponse(team);
     }
 
+    @Transactional(readOnly = true)
     public void validateMembership(Long userId, Long teamId) {
         if(!teamMemberRepository.existsByTeamIdAndUserId(teamId, userId)) {
             throw new CustomException(ErrorCode.FORBIDDEN_TEAM);
