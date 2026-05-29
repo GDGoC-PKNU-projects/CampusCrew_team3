@@ -2,10 +2,11 @@ package com.campuscrew;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
+@EnableJpaAuditing
 public class CampuscrewApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(CampuscrewApplication.class, args);
     }
