@@ -1,0 +1,41 @@
+.page {
+    min-height: 100vh;
+    background-color: #f8fafc;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 32px;
+    box-sizing: border-box;
+}
+
+.titleSection {
+    margin-bottom: 32px;
+}
+
+.title {
+    margin: 0 0 10px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.description {
+    margin: 0;
+    font-size: 16px;
+    color: #64748b;
+}
+
+.teamGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.actionGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}

@@ -1,0 +1,56 @@
+.header {
+    width: 100%;
+    height: 82px;
+    border-bottom: 1px solid #d9e2ef;
+    background-color: #ffffff;
+}
+
+.headerInner {
+    max-width: 1280px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 32px;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logoBox {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.logoIcon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: #243f97;
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logoText {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.logoutButton {
+    border: none;
+    background: none;
+    color: #52637a;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 16px;
+    cursor: pointer;
+}

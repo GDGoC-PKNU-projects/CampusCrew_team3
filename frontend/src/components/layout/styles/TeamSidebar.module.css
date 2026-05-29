@@ -1,0 +1,88 @@
+.sidebar {
+    width: 280px;
+    min-height: 100vh;
+    background-color: #24449a;
+    color: #ffffff;
+    box-sizing: border-box;
+}
+
+.teamArea {
+    padding: 24px 24px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0;
+    margin-bottom: 18px;
+    border: none;
+    background: none;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.backLink:hover {
+    color: #ffffff;
+}
+
+.teamInfo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.teamIcon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background-color: #22c1d6;
+}
+
+.teamText {
+    min-width: 0;
+}
+
+.teamName {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #ffffff;
+    word-break: keep-all;
+}
+
+.teamType {
+    margin: 8px 0 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.78);
+}
+
+.nav {
+    padding: 28px 24px;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 8px;
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.navItem + .navItem {
+    margin-top: 14px;
+}
+
+.navItem:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+}
