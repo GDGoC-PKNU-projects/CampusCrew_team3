@@ -1,0 +1,42 @@
+### 변수 설정 (사용하는 툴에 따라 설정)
+@baseUrl = http://localhost:8080/api
+@token = jwt-token-sample
+
+### 1. 공지사항 생성 (POST)
+# 명세서 7.2 기준
+POST {{baseUrl}}/teams/1/notices
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "캠퍼스크루 첫 공지",
+  "content": "공지사항입니다."
+}
+
+### 2. 특정 팀 공지사항 목록 조회 (GET)
+# 명세서 7.1 기준
+GET {{baseUrl}}/teams/1/notices
+Authorization: Bearer {{toke  n}}
+Accept: application/json
+
+### 3. 특정 공지 상세 조회 (GET)
+# 명세서 7.3 기준
+GET {{baseUrl}}/teams/1/notices/1
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### 4. 공지사항 수정 (PUT)
+# 명세서 7.4 기준
+PUT {{baseUrl}}/teams/1/notices/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "수정된 공지 제목",
+  "content": "내용도 수정되었습니다."
+}
+
+### 5. 공지사항 삭제 (DELETE)
+# 명세서 7.5 기준
+DELETE {{baseUrl}}/teams/1/notices/1
+Authorization: Bearer {{token}}
